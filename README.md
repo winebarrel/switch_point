@@ -89,6 +89,13 @@ end
 
 Note that Article and Category shares their connections.
 
+### Switching connections in relation
+
+```ruby
+Article.using_readonly.first # Read from db-blog-slave
+Article.where(id: 1).using_writable.update_all(title: 'new title') # Write to db-blog-master
+```
+
 ### Query cache
 `Model.cache` and `Model.uncached` enables/disables query cache for both
 readonly connection and writable connection.
