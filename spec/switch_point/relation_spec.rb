@@ -2,6 +2,8 @@
 
 RSpec.describe SwitchPoint::Relation do
   before do
+    skip 'Support AR::Relation extension is Rails version 4 or higher.' if ActiveRecord::VERSION::MAJOR < 4
+
     Book.with_writable do
       Book.create!(id: 1)
     end
