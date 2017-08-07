@@ -78,12 +78,6 @@ RSpec.describe SwitchPoint::Relation do
       end
     end
 
-    context 'without use_switch_point' do
-      it 'raises error' do
-        expect { Note.all.using_readonly }.to raise_error(SwitchPoint::UnconfiguredError)
-      end
-    end
-
     context 'using delegation' do
       it 'connect to readonly db' do
         Book.with_writable do
@@ -159,17 +153,25 @@ RSpec.describe SwitchPoint::Relation do
       end
     end
 
-    context 'without use_switch_point' do
-      it 'raises error' do
-        expect { Note.all.using_writable }.to raise_error(SwitchPoint::UnconfiguredError)
-      end
-    end
-
     context 'using delegation' do
       it 'connect to writable db' do
         Book.with_writable do
           expect(Book.using_writable.where(id: 1).count).to eq 1
         end
+      end
+    end
+  end
+
+  context 'without use_switch_point' do
+    describe '#with_readonly' do
+      it 'raises error' do
+        expect { Note.all.using_readonly }.to raise_error(SwitchPoint::UnconfiguredError)
+      end
+    end
+
+    describe '#using_writable' do
+      it 'raises error' do
+        expect { Note.all.using_writable }.to raise_error(SwitchPoint::UnconfiguredError)
       end
     end
   end
