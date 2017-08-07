@@ -13,7 +13,7 @@ RSpec.describe SwitchPoint::Relation do
     end
   end
 
-  describe '#with_readonly' do
+  describe '#using_readonly' do
     context 'using take' do
       it 'connect to readonly db' do
         Book.with_writable do
@@ -87,7 +87,7 @@ RSpec.describe SwitchPoint::Relation do
     end
   end
 
-  describe '#with_writable' do
+  describe '#using_writable' do
     context 'using take' do
       it 'connect to writable db' do
         Book.with_readonly do
@@ -163,7 +163,7 @@ RSpec.describe SwitchPoint::Relation do
   end
 
   context 'without use_switch_point' do
-    describe '#with_readonly' do
+    describe '#using_readonly' do
       it 'raises error' do
         expect { Note.all.using_readonly }.to raise_error(SwitchPoint::UnconfiguredError)
       end
@@ -177,7 +177,7 @@ RSpec.describe SwitchPoint::Relation do
   end
 
   context 'when reuse relation' do
-    describe '#with_readonly' do
+    describe '#using_readonly' do
       it 'does not make destructive changes' do
         rel = Book.where(id: 1)
 
