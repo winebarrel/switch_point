@@ -175,4 +175,52 @@ RSpec.describe SwitchPoint::Relation do
       end
     end
   end
+
+  context 'when reuse relation' do
+    describe '#with_readonly' do
+      it 'does not make destructive changes' do
+        rel = Book.where(id: 1)
+
+        Book.with_writable do
+          expect(rel.using_readonly.take).to be_nil
+          expect(rel.take).to be_a Book
+        end
+      end
+
+      it 'reset the result' do
+        rel = Book.using_readonly
+
+        Book.with_writable do
+          expect(rel.map(&:id)).to eq [99]
+        end
+
+        Book.with_readonly do
+          expect(rel.using_writable.map(&:id)).to eq [1]
+        end
+      end
+    end
+
+    describe '#using_writable' do
+      it 'does not make destructive changes' do
+        rel = Book.where(id: 1)
+
+        Book.with_readonly do
+          expect(rel.using_writable.take).to be_a Book
+          expect(rel.take).to be_nil
+        end
+      end
+
+      it 'reset the result' do
+        rel = Book.using_writable
+
+        Book.with_readonly do
+          expect(rel.map(&:id)).to eq [1]
+        end
+
+        Book.with_writable do
+          expect(rel.using_readonly.map(&:id)).to eq [99]
+        end
+      end
+    end
+  end
 end
