@@ -96,7 +96,7 @@ Article.using_readonly.first # Read from db-blog-slave
 Article.where(id: 1).using_writable.update_all(title: 'new title') # Write to db-blog-master
 ```
 
-Note that `AR::Relation` extension support is Rails version 4 or higher.
+Note that `AR::Relation` extension is only supported in Rails 4.0 or higher.
 
 ### Query cache
 `Model.cache` and `Model.uncached` enables/disables query cache for both
