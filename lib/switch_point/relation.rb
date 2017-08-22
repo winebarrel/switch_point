@@ -4,31 +4,31 @@ module SwitchPoint
   module Relation
     attr_writer :proc_to_give_switch_point_mode
 
-    def exec_queries(*args, &block)
+    def exec_queries(*)
       with_switch_point_mode { super }
     end
 
-    def calculate(*args, &block)
+    def calculate(*)
       with_switch_point_mode { super }
     end
 
-    def delete_all(*args, &block)
+    def delete_all(*)
       with_switch_point_mode { super }
     end
 
-    def destroy(*args, &block)
+    def destroy(*)
       with_switch_point_mode { super }
     end
 
-    def destroy_all(*args, &block)
+    def destroy_all(*)
       with_switch_point_mode { super }
     end
 
-    def update(*args, &block)
+    def update(*)
       with_switch_point_mode { super }
     end
 
-    def update_all(*args, &block)
+    def update_all(*)
       with_switch_point_mode { super }
     end
 
